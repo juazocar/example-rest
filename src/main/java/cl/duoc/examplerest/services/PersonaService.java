@@ -1,17 +1,25 @@
 package cl.duoc.examplerest.services;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import cl.duoc.examplerest.model.dto.PersonaDTO;
+import cl.duoc.examplerest.model.repository.PersonaRepository;
 
+@Service
 public class PersonaService {
-    
 
-    public PersonaDTO getPersona(){
-        PersonaDTO personaDto = new PersonaDTO();
-        personaDto.setIdPersona(1);
-        personaDto.setDni("1-2");
-        personaDto.setNombre("Isidora");
-        personaDto.setApellido("Azocar");
-        personaDto.setTelefono("1234656");
-        return personaDto;
+    @Autowired
+    PersonaRepository personaRepository;
+    
+    public List<PersonaDTO> getAllPersonas(){
+        return personaRepository.findAll();
+    }
+
+    public PersonaDTO add(PersonaDTO personaDTO){
+        return personaRepository.save(personaDTO);
     }
 }
